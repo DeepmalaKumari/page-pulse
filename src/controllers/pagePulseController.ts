@@ -3,7 +3,7 @@ import { z } from "zod";
 import { checkPage } from "../services/pagePulseService.js";
 
 const requestSchema = z.object({
-  url: z.string().url(),
+  url: z.url(),
 });
 
 export async function checkPageController(
