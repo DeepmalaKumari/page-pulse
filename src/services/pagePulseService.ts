@@ -24,22 +24,36 @@ async function performCheck(url: string): Promise<PagePulseResult> {
 
   const startTime = Date.now();
 
-  const response = await fetch(url, {
-    method: "GET",
-    signal: AbortSignal.timeout(5000),
-  });
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      signal: AbortSignal.timeout(5000),
+    });
 
-  const result: PagePulseResult = {
-    url,
-    statusCode: response.status,
-    reachable: response.ok,
-    responseTimeMs: Date.now() - startTime,
-    auditedAt: new Date().toISOString(),
-  };
+    const result: PagePulseResult = {
+      url,
+      statusCode: response.status,
+      reachable: response.ok,
+      responseTimeMs: Date.now() - startTime,
+      auditedAt: new Date().toISOString(),
+    };
 
-  await setCached(url, result);
+    await setCached(url, result);
 
-  return result;
+    return result;
+  } catch {
+    const result: PagePulseResult = {
+      url,
+      statusCode: 0,
+      reachable: false,
+      responseTimeMs: Date.now() - startTime,
+      auditedAt: new Date().toISOString(),
+    };
+
+    await setCached(url, result);
+
+    return result;
+  }
 }
 
 export function checkPage(url: string): Promise<PagePulseResult> {
