@@ -1,0 +1,58 @@
+PAGE PULSE — LIVE API VERIFICATION
+
+Live URL:
+https://page-pulse-vpnk.onrender.com
+
+Repository:
+https://github.com/DeepmalaKumari/page-pulse
+
+Health Check
+------------
+
+Command:
+
+Invoke-RestMethod "https://page-pulse-vpnk.onrender.com/health"
+
+Expected response:
+
+status service
+------ -------
+ok     page-pulse
+
+
+Successful URL Audit
+--------------------
+
+Command:
+
+Invoke-RestMethod -Uri "https://page-pulse-vpnk.onrender.com/api/v1/page-pulse" -Method Post -ContentType "application/json" -Body '{"url":"https://example.com"}'
+
+This verifies that the deployed API can successfully audit a live URL.
+
+
+Invalid URL Validation
+----------------------
+
+Command:
+
+Invoke-RestMethod -Uri "https://page-pulse-vpnk.onrender.com/api/v1/page-pulse" -Method Post -ContentType "application/json" -Body '{"url":"not-a-valid-url"}'
+
+Expected:
+
+HTTP 400 Bad Request
+
+This verifies input validation and structured error handling.
+
+
+Live Deployment Verification
+----------------------------
+
+The deployed service was tested through the public Render URL.
+
+Verified:
+
+- Health endpoint is reachable
+- URL audit endpoint is publicly accessible
+- Successful external URL audit works
+- Invalid URL input is rejected
+- The production API is running independently of the local development environment
