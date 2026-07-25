@@ -391,3 +391,6 @@ External auditing
 Result storage
 
 This separation allows the API to remain responsive even when external websites are slow or unavailable.
+
+
+AI usage disclosure: I used AI as a development and review assistant to help clarify architectural trade-offs, identify edge cases, improve test coverage, and structure the scaling documentation. I reviewed, adapted, and tested the resulting implementation myself, including validating the API behavior, error handling, caching, rate limiting, and test suite.
